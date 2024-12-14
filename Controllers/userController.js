@@ -2,20 +2,18 @@ import userModal from "../models/userModals.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const registerUser = async (req, res) => {            //user register for the api 
+export const registerUser = async (req, res) => {
+  //user register for the api
   try {
     const { Name, Date_birth, Email, Password } = req.body;
-    console.log(req.body);
 
     if (!Name || !Date_birth || !Email || !Password) {
-      console.log("field");
 
       return res.status(400).send({ message: "All Fields Are requried" });
     }
 
     const exinstingUser = await userModal.findOne({ Email: Email });
     if (exinstingUser) {
-      console.log("registeed already");
 
       return res.status(400).send({ message: "All ready user Registered" });
     }
@@ -40,7 +38,8 @@ export const registerUser = async (req, res) => {            //user register for
   }
 };
 
-export const loginUser = async (req, res) => {             //login user and generate token also
+export const loginUser = async (req, res) => {
+  //login user and generate token also
   try {
     const { Email, Password } = req.body;
 
@@ -67,10 +66,9 @@ export const loginUser = async (req, res) => {             //login user and gene
   }
 };
 
-
-
-export const getAllUser = async (req, res) => {                   //get All users Data
-  try { 
+export const getAllUser = async (req, res) => {
+  //get All users Data
+  try {
     const response = await userModal.find({});
 
     if (response) {
